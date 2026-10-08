@@ -47,7 +47,7 @@ Add the following to your `claude_desktop_config.json`:
 | `fetch_youtube_transcript` | Extracts full spoken timestamped transcripts (4,000 to 18,000+ words) for 3-act narrative dissection. |
 | `query_niche_velocity` | Returns real-time Views-Per-Hour (VPH) velocity multipliers across 110 tracked niche taxonomy buckets. |
 | `extract_creator_dna` | Analyzes competitor title patterns, upload cadence, and audience retention hooks. |
-| `synthesize_script_outline` | Formats structured narrative outlines based on competitor storytelling architectures. |
+| `develop_script_outline` | Formats structured narrative outlines based on competitor storytelling architectures. |
 
 ---
 
