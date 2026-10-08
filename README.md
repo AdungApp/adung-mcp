@@ -54,7 +54,7 @@ Add the following to your `claude_desktop_config.json`:
 
 - **Localhost Execution:** Operates exclusively on `127.0.0.1` — no external proxy or cloud data relay.
 - **BYOK (Bring Your Own Key):** Users configure their own Anthropic Claude API keys.
-- **YouTube Compliance:** Strictly adheres to YouTube terms by processing creator-directed public metadata for research and fair-use synthesis.
+- **YouTube Compliance:** Strictly adheres to YouTube terms by processing creator-directed public metadata for research and fair-use analysis and original script development.
 
 ---
 
