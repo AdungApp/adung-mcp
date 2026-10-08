@@ -5,8 +5,9 @@
 [![MCP Protocol](https://img.shields.io/badge/Protocol-Model%20Context%20Protocol-orange.svg)](https://modelcontextprotocol.io/)
 [![Client](https://img.shields.io/badge/Client-Claude%20Desktop%20%7C%20Claude%20Code-purple.svg)](https://claude.ai/)
 
-> **Official Model Context Protocol (MCP) Server for YouTube Adung Commercial**  
-> Developed by **Adung** (https://adung.top).
+> **Model Context Protocol (MCP) Server (Developer Preview)**  
+> Developed by **Adung** (https://adung.top).  
+> *Note: The MCP stdio transport, tool schemas, and Claude Desktop / Claude Code integration are fully runnable. Production data adapters bridging to YouTube Adung local desktop database engine are currently under active development.*
 
 ---
 

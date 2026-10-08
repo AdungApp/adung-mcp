@@ -81,7 +81,7 @@ TOOLS: List[Dict[str, Any]] = [
 ]
 
 def handle_tool_call(name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
-    """Process tool calls against local workstation database or engine stubs."""
+    """Process tool calls. Operates in developer preview benchmark mode with structured schemas; production database adapters to local desktop workstation are under evaluation."""
     if name == "fetch_youtube_transcript":
         video_ref = arguments.get("video_url_or_id", "")
         return {
