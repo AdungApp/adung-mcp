@@ -7,32 +7,38 @@
 
 > **Model Context Protocol (MCP) Server (Developer Preview)**  
 > Developed by **Adung** (https://adung.top).  
-> *Note: The MCP stdio transport, tool schemas, and Claude Desktop / Claude Code integration are fully runnable. Production data adapters bridging to YouTube Adung local desktop database engine are currently under active development.*
+> This is a local stdio protocol preview, not a live YouTube research service. All four tool adapters are not implemented and return explicit errors with no research data. Claude Desktop / Claude Code compatibility has not been verified end-to-end.
 
 ---
 
 ## Overview
 
-The **Adung YouTube MCP Server** exposes deep creator intelligence, long-form video transcript extraction, and competitor velocity metrics directly into **Anthropic Claude Desktop** and **Claude Code**.
+The **Adung YouTube MCP Server** exposes proposed tool schemas and JSON-RPC request handling for future creator research integrations.
 
-By connecting this MCP server, Claude gains native capabilities to inspect YouTube content without requiring manual copy-pasting of multi-hour video transcripts.
+It supports initialization, tool listing, explicit unavailable tool responses, and ping. It does not fetch YouTube content, connect to the desktop database, or call an AI provider. No API key is required for this preview.
 
 ---
 
-## Configuration
+## Installation and configuration
 
-Add the following to your `claude_desktop_config.json`:
+Python 3.10+ and Git are required separately from the desktop EXE. In a Windows terminal:
+
+```powershell
+git clone https://github.com/AdungApp/adung-mcp.git
+cd adung-mcp
+python -m venv .venv
+.venv\Scripts\python.exe -m pip install .
+.venv\Scripts\python.exe -m unittest discover -s tests -v
+```
+
+Use the absolute path to that environment's Python executable in your MCP client's configuration. For Claude Desktop, the following is a configuration example, not a claim of tested client compatibility. Replace the example path with your installation path:
 
 ```json
 {
   "mcpServers": {
     "adung-youtube": {
-      "command": "python",
-      "args": ["-m", "adung_mcp.server"],
-      "env": {
-        "ADUNG_HOST": "127.0.0.1",
-        "ADUNG_PORT": "8000"
-      }
+      "command": "C:\\path\\to\\adung-mcp\\.venv\\Scripts\\python.exe",
+      "args": ["-m", "adung_mcp.server"]
     }
   }
 }
@@ -44,18 +50,24 @@ Add the following to your `claude_desktop_config.json`:
 
 | Tool Name | Description |
 |---|---|
-| `fetch_youtube_transcript` | Extracts full spoken timestamped transcripts (4,000 to 18,000+ words) for 3-act narrative dissection. |
-| `query_niche_velocity` | Returns real-time Views-Per-Hour (VPH) velocity multipliers across 110 tracked niche taxonomy buckets. |
-| `extract_creator_dna` | Analyzes competitor title patterns, upload cadence, and audience retention hooks. |
-| `develop_script_outline` | Formats structured narrative outlines based on competitor storytelling architectures. |
+| `fetch_youtube_transcript` | Planned transcript adapter; not implemented. |
+| `query_niche_velocity` | Planned niche metrics adapter; not implemented. |
+| `extract_creator_dna` | Planned creator analysis adapter; not implemented. |
+| `develop_script_outline` | Planned research-backed outline adapter; not implemented. |
+
+Every registered tool call returns MCP `isError: true` and a JSON text payload with `status: "not_implemented"`, `data_source: "none"`, and `data: null`. No fabricated metrics or transcript samples are returned. Tool names and schemas are retained as preview interfaces, not functioning production features.
+
+## Verification scope
+
+The unittest suite launches the installed module as a subprocess from an unrelated temporary directory and checks initialization, notifications, tool listing, all four unavailable responses, unknown tools, and ping over actual stdin/stdout. It requires no paid API calls. The `--test` command is only an in-process smoke test. Neither test establishes full MCP conformance or Claude client compatibility. Live adapters and end-to-end client verification remain future work.
 
 ---
 
 ## Security & Local-First Guardrails
 
-- **Localhost Execution:** Operates exclusively on `127.0.0.1` — no external proxy or cloud data relay.
-- **BYOK (Bring Your Own Key):** Users configure their own Anthropic Claude API keys.
-- **YouTube Compliance:** Strictly adheres to YouTube terms by processing creator-directed public metadata for research and fair-use analysis and original script development.
+- **Local subprocess:** Communicates through stdin/stdout. There is no HTTP/SSE listener; host and port environment variables are not used.
+- **No credentials needed:** This preview performs no network research or AI inference. Client-side AI usage, if any, is separate.
+- **Future adapters:** Must respect content rights and applicable platform terms. This preview is not a compliance certification.
 
 ---
 

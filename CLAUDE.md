@@ -9,5 +9,5 @@
 ## Standards
 - Python 3.10+
 - Protocol: Model Context Protocol (MCP) Standard specification
-- Transport: stdio / SSE localhost
+- Transport: stdio subprocess only; no HTTP/SSE listener or host/port configuration
 - Style: PEP 8, Type hints, Comprehensive docstrings

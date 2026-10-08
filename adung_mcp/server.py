@@ -1,7 +1,7 @@
 """Standard Model Context Protocol (MCP) stdio server implementation.
 
-Follows the MCP specification (2024-11-05).
-Compatible with Claude Desktop, Claude Code, and any standard MCP client.
+Targets MCP protocol version 2024-11-05.
+Client-specific compatibility requires separate verification.
 """
 import json
 import sys
@@ -77,7 +77,7 @@ def process_message(msg: Dict[str, Any]) -> Dict[str, Any] | None:
                         "text": json.dumps(result_data, indent=2, ensure_ascii=False)
                     }
                 ],
-                "isError": False
+                "isError": result_data.get("status") == "not_implemented"
             })
         except Exception as e:
             logger.error("Error executing tool %s: %s", tool_name, str(e))
@@ -124,9 +124,11 @@ def run_test_suite():
         }
     }
     call_res = process_message(call_req)
-    assert not call_res["result"]["isError"]
-    print("✓ tools/call (develop_script_outline) returned valid outline structure")
-    print("All MCP server tests PASSED cleanly!")
+    assert call_res is not None
+    assert call_res["result"]["isError"]
+    assert json.loads(call_res["result"]["content"][0]["text"])["status"] == "not_implemented"
+    print("OK: preview tool explicitly reports unavailable; no synthetic research")
+    print("In-process smoke passed; this does not verify Claude client integration.")
 
 def main():
     if "--test" in sys.argv:

@@ -4,7 +4,7 @@ from typing import Any, Dict, List
 TOOLS: List[Dict[str, Any]] = [
     {
         "name": "fetch_youtube_transcript",
-        "description": "Extracts timestamped spoken transcripts (4,000 to 18,000+ words) from long-form YouTube videos for 3-act narrative dissection.",
+        "description": "Developer preview: transcript adapter not implemented. Returns an explicit unavailable error, not transcript data.",
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -23,7 +23,7 @@ TOOLS: List[Dict[str, Any]] = [
     },
     {
         "name": "query_niche_velocity",
-        "description": "Queries real-time Views-Per-Hour (VPH) velocity multipliers and breakout indicators across 110 tracked creator niche libraries.",
+        "description": "Developer preview: niche velocity adapter not implemented. No live metrics are available.",
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -42,7 +42,7 @@ TOOLS: List[Dict[str, Any]] = [
     },
     {
         "name": "extract_creator_dna",
-        "description": "Inspects competitor upload cadence, hook retention architectures, and title/thumbnail framing patterns.",
+        "description": "Developer preview: creator analysis adapter not implemented. No channel analysis is available.",
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -56,7 +56,7 @@ TOOLS: List[Dict[str, Any]] = [
     },
     {
         "name": "develop_script_outline",
-        "description": "Develops structured creator-led narrative outlines from verified research insights without republishing third-party text.",
+        "description": "Developer preview: research-backed outline adapter not implemented. No generated outline is available.",
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -81,61 +81,13 @@ TOOLS: List[Dict[str, Any]] = [
 ]
 
 def handle_tool_call(name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
-    """Process tool calls. Operates in developer preview benchmark mode with structured schemas; production database adapters to local desktop workstation are under evaluation."""
-    if name == "fetch_youtube_transcript":
-        video_ref = arguments.get("video_url_or_id", "")
-        return {
-            "status": "success",
-            "video_ref": video_ref,
-            "word_count": 4820,
-            "segments_analyzed": 142,
-            "narrative_arc": {
-                "hook_duration": "0:00 - 1:15",
-                "act_1_premise": "Core mystery and disruption of status quo",
-                "act_2_escalation": "Conflicting evidence and structural tension",
-                "act_3_climax_resolution": "Key takeaway and call to action"
-            },
-            "transcript_preview": "[00:00] In the early hours of what seemed like a routine morning... [01:15] But the data told an entirely different story."
-        }
-    elif name == "query_niche_velocity":
-        niche = arguments.get("niche_id", "general")
-        min_vph = arguments.get("min_vph", 500)
-        return {
-            "niche": niche,
-            "benchmark_vph": min_vph,
-            "breakout_videos_found": 12,
-            "average_outlier_multiplier": "3.8x",
-            "high_performing_subtopics": [
-                "Underreported case investigations",
-                "Structural post-mortems of failed systems",
-                "Historical analogies to modern events"
-            ]
-        }
-    elif name == "extract_creator_dna":
-        channel = arguments.get("channel_id_or_url", "")
-        return {
-            "channel": channel,
-            "catalog_depth": "85 videos tracked",
-            "upload_cadence": "Every 10-14 days",
-            "avg_script_length": "4,500 words (~22 mins)",
-            "signature_pacing": "Micro-hook every 90 seconds, visual reset every 12 seconds",
-            "hook_typology": "Provocative open loop with verifiable primary source tease"
-        }
-    elif name == "develop_script_outline":
-        topic = arguments.get("topic", "")
-        duration = arguments.get("target_duration_minutes", 15)
-        style = arguments.get("narrative_style", "3-act-documentary")
-        return {
-            "topic": topic,
-            "target_duration": f"{duration} minutes (~{duration * 150} words)",
-            "style": style,
-            "structure": {
-                "act_1": "Cold Open Hook (0-90s): Introduce the anomaly and raise the stakes",
-                "act_2_part_a": "Context & Investigation (90s-6m): Dissect primary source evidence",
-                "act_2_part_b": "The Turning Point (6m-11m): Reveal the underlying structural friction",
-                "act_3": "Synthesis & Payoff (11m-15m): Connect to creator thesis and deliver value"
-            },
-            "fair_use_guideline": "Original content synthesis driven by verified factual insights."
-        }
-    else:
+    """Fail explicitly until production adapters exist; never invent research."""
+    if name not in {tool["name"] for tool in TOOLS}:
         raise ValueError(f"Unknown tool: {name}")
+    return {
+        "status": "not_implemented",
+        "tool": name,
+        "data_source": "none",
+        "data": None,
+        "message": "Developer preview only. The production adapter is not implemented. No research was performed; do not infer results from this response.",
+    }
