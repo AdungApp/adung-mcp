@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "adung-mcp"
+version = "1.2.0"
+description = "Model Context Protocol (MCP) server for YouTube Adung Commercial creator intelligence workstation"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "Dung Duy", email = "founder@adung.top"}
+]
+keywords = ["mcp", "model-context-protocol", "claude", "youtube", "creator-intelligence", "anthropic"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[project.urls]
+Homepage = "https://adung.top"
+Documentation = "https://github.com/AdungApp/adung-mcp"
+Repository = "https://github.com/AdungApp/adung-mcp.git"
+
+[project.scripts]
+adung-mcp = "adung_mcp.server:main"
